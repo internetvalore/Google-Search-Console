@@ -1,0 +1,63 @@
+URL VALIDATOR APPLICATION - UPDATE LOG
+====================================
+
+Version 1.0.0 (Initial Version) - 2025-04-05
+-------------------------------------------
+- Created initial Python environment with venv
+- Implemented basic URL validator with tkinter interface
+- Added URL validation functionality:
+  * Format validation
+  * Scheme validation
+  * Accessibility checking
+- Added status label for feedback
+- Added message box notifications
+
+Version 2.0.0 (Refactoring) - 2025-04-05
+---------------------------------------
+- Refactored code into Object-Oriented structure
+- Split monolithic file into multiple focused files:
+  * main.py: Entry point
+  * url_validator_app.py: GUI implementation
+  * url_validator.py: Validation logic
+  * config.py: Configuration constants
+- Applied separation of concerns:
+  * UI logic separated from validation logic
+  * Configuration separated from implementation
+- Improved code organization:
+  * Created URLValidator class for validation
+  * Broke down GUI creation into smaller methods
+  * Added comprehensive docstrings
+- Added documentation:
+  * README.txt: General information and usage
+  * TECHNICAL_DOCS.txt: Detailed technical documentation
+  * UPDATE_LOG.txt: Version history and changes
+
+Changes in Version 2.0.0
+-----------------------
+1. Code Structure:
+   - Moved from a single file to multiple files with clear responsibilities
+   - Organized code into logical classes and methods
+
+2. Object-Oriented Improvements:
+   - Applied Single Responsibility Principle
+   - Improved encapsulation
+   - Reduced code duplication
+   - Enhanced maintainability
+
+3. Configuration Management:
+   - Extracted constants to config.py
+   - Made the application more configurable
+
+4. Documentation:
+   - Added comprehensive documentation
+   - Included technical details for developers
+   - Provided usage instructions for users
+
+Future Updates Planned
+--------------------
+- Add support for more URL validation checks
+- Implement history of validated URLs
+- Add ability to save validation results
+- Create more detailed validation reports
+- Add support for batch validation of multiple URLs
+- Implement asynchronous validation for better UI responsiveness

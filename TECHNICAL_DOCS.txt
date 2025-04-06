@@ -1,0 +1,156 @@
+URL VALIDATOR APPLICATION - TECHNICAL DOCUMENTATION
+=================================================
+
+This document provides detailed technical information about the URL Validator application's implementation.
+
+Class Structure
+--------------
+
+1. URLValidator (url_validator.py)
+   - Static methods for URL validation
+   - Class method that combines validation steps
+
+2. URLValidatorApp (url_validator_app.py)
+   - GUI implementation using tkinter
+   - Methods for creating and managing UI components
+   - Event handling for user interactions
+
+Detailed Class Documentation
+---------------------------
+
+### URLValidator
+
+#### Static Methods:
+
+- `is_empty(url: str) -> bool`
+  - Checks if a URL string is empty after stripping whitespace
+  - Returns True if empty, False otherwise
+
+- `has_valid_format(url: str) -> bool`
+  - Uses the validators library to check if the URL has a valid format
+  - Returns True if valid, False otherwise
+
+- `has_valid_scheme(url: str) -> bool`
+  - Parses the URL to extract the scheme
+  - Checks if the scheme is in the VALID_SCHEMES list (http, https)
+  - Returns True if valid, False otherwise
+
+- `is_accessible(url: str) -> tuple[bool, str, int|None]`
+  - Attempts to access the URL using requests.head()
+  - Returns a tuple containing:
+    - Success flag (True/False)
+    - Message describing the result
+    - HTTP status code (or None if request failed)
+
+#### Class Methods:
+
+- `validate(url: str) -> tuple[bool, str, int|None]`
+  - Combines all validation steps in sequence
+  - Returns early with appropriate error messages if any validation step fails
+  - Returns the result of is_accessible() if all other checks pass
+
+### URLValidatorApp
+
+#### Constructor:
+
+- `__init__(self, root: tk.Tk)`
+  - Initializes the application with the tkinter root window
+  - Calls setup_window() and create_widgets()
+
+#### Setup Methods:
+
+- `setup_window(self)`
+  - Configures the main window title, geometry, and resizable properties
+
+- `create_widgets(self)`
+  - Calls methods to create all UI components
+
+- `create_main_frame(self)`
+  - Creates the main frame with padding
+
+- `create_title_label(self)`
+  - Creates the title label at the top of the window
+
+- `create_input_frame(self)`
+  - Creates a frame containing the URL label and entry field
+  - Pre-fills the entry with the default URL prefix
+
+- `create_submit_button(self)`
+  - Creates the validate button with styling and command binding
+
+- `create_status_label(self)`
+  - Creates the label for displaying validation status
+
+#### Event Handling:
+
+- `validate_url(self)`
+  - Gets the URL from the entry field
+  - Calls URLValidator.validate() to check the URL
+  - Shows appropriate success or error messages based on the result
+
+- `show_error(self, message: str)`
+  - Updates the status label with an error message in red
+
+- `show_success(self, message: str)`
+  - Updates the status label with a success message in green
+
+Configuration (config.py)
+------------------------
+
+The config.py file contains constants used throughout the application:
+
+- Window settings (title, dimensions)
+- UI settings (padding, fonts, colors)
+- URL validation settings (default prefix, timeout, valid schemes)
+- Message box titles
+
+Main Entry Point (main.py)
+-------------------------
+
+The main.py file serves as the entry point for the application:
+
+- Imports necessary modules
+- Defines a main() function that:
+  - Creates a tkinter root window
+  - Instantiates the URLValidatorApp
+  - Starts the tkinter main loop
+- Runs the main() function when the script is executed directly
+
+Data Flow
+---------
+
+1. User enters a URL in the entry field
+2. User clicks the "Validate URL" button
+3. The validate_url() method in URLValidatorApp is called
+4. The URL is passed to URLValidator.validate()
+5. URLValidator performs validation checks in sequence
+6. The validation result is returned to URLValidatorApp
+7. URLValidatorApp updates the UI with the result:
+   - Updates the status label
+   - Shows a message box
+
+Error Handling
+-------------
+
+- URL validation errors are caught and displayed to the user
+- Network errors during URL access are caught and displayed
+- The application remains responsive even when errors occur
+
+Dependencies Management
+---------------------
+
+The application requires:
+- validators: For URL format validation
+- requests: For checking URL accessibility
+
+These dependencies should be installed in the virtual environment using pip.
+
+Code Style and Conventions
+-------------------------
+
+- PEP 8 compliant
+- Comprehensive docstrings
+- Clear variable and method naming
+- Consistent indentation and formatting
+- Logical organization of methods
+- Separation of concerns between files and classes

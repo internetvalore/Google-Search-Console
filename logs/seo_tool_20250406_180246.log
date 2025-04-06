@@ -1,0 +1,28 @@
+2025-04-06 18:03:16,343 - seo_crawler - INFO - Processing sitemap: https://internetvalore.it/sitemap.xml
+2025-04-06 18:03:17,197 - seo_crawler - INFO - Processing sitemap
+2025-04-06 18:03:17,209 - seo_crawler - INFO - Crawling website: https://internetvalore.it
+2025-04-06 18:03:17,209 - seo_crawler - INFO - Visiting URL: https://internetvalore.it (depth: 0)
+2025-04-06 18:03:20,887 - seo_content_loader - INFO - Loaded URL: https://internetvalore.it/ (status code: 200)
+2025-04-06 18:03:20,888 - seo_content_loader - INFO - Loaded URL: https://internetvalore.it (status code: 200)
+2025-04-06 18:03:20,965 - seo_content_loader - INFO - Loaded URL: https://internetvalore.it/en/specializations (status code: 200)
+2025-04-06 18:03:20,972 - seo_content_loader - INFO - Loaded URL: https://internetvalore.it/services/ads (status code: 200)
+2025-04-06 18:03:20,972 - seo_content_loader - INFO - Loaded URL: https://internetvalore.it/landing-page-professionali (status code: 200)
+2025-04-06 18:03:20,974 - seo_content_loader - INFO - Loaded URL: https://internetvalore.it/en/instant-websites (status code: 200)
+2025-04-06 18:03:20,974 - seo_content_loader - INFO - Loaded URL: https://internetvalore.it/en/flipping-catalog (status code: 200)
+2025-04-06 18:03:20,975 - seo_content_loader - INFO - Loaded URL: https://internetvalore.it/services/lead-generation (status code: 200)
+2025-04-06 18:03:20,977 - seo_content_loader - INFO - Loaded URL: https://internetvalore.it/about (status code: 200)
+2025-04-06 18:03:20,978 - seo_content_loader - INFO - Loaded URL: https://internetvalore.it/en/ (status code: 200)
+2025-04-06 18:03:20,997 - seo_content_loader - INFO - Loaded URL: https://internetvalore.it/services/rispondi-subito (status code: 200)
+2025-04-06 18:03:20,997 - seo_content_loader - INFO - Loaded URL: https://internetvalore.it/en/services/lead-generation (status code: 200)
+2025-04-06 18:03:20,998 - seo_content_loader - INFO - Loaded URL: https://internetvalore.it/en/about (status code: 200)
+2025-04-06 18:03:21,003 - seo_content_loader - INFO - Loaded URL: https://internetvalore.it/specializations (status code: 200)
+2025-04-06 18:03:21,004 - seo_content_loader - INFO - Loaded URL: https://internetvalore.it/en/services/rispondi-subito (status code: 200)
+2025-04-06 18:03:21,004 - seo_content_loader - INFO - Loaded URL: https://internetvalore.it/en/services/analytics (status code: 200)
+2025-04-06 18:03:21,032 - seo_content_loader - INFO - Loaded URL: https://internetvalore.it/services/analytics (status code: 200)
+2025-04-06 18:03:21,033 - seo_content_loader - INFO - Loaded URL: https://internetvalore.it/en/services/ecommerce (status code: 200)
+2025-04-06 18:03:21,036 - seo_content_loader - INFO - Loaded URL: https://internetvalore.it/en/landing-page-professionali (status code: 200)
+2025-04-06 18:03:21,037 - seo_content_loader - INFO - Loaded URL: https://internetvalore.it/flipping-catalog (status code: 200)
+2025-04-06 18:03:21,042 - seo_content_loader - INFO - Loaded URL: https://internetvalore.it/instant-websites (status code: 200)
+2025-04-06 18:03:21,048 - seo_content_loader - INFO - Loaded URL: https://internetvalore.it/en/services/ads (status code: 200)
+2025-04-06 18:03:21,085 - seo_content_loader - INFO - Loaded URL: https://internetvalore.it/services/ecommerce (status code: 200)
+2025-04-06 18:04:24,833 - seo_main_topic - INFO - Analyzing main topics

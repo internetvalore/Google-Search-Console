@@ -1,0 +1,89 @@
+2025-04-06 17:19:09,477 - seo_crawler - INFO - Processing sitemap: https://acentroservices.leprimescelte.com/sitemap.xml
+2025-04-06 17:19:10,109 - seo_crawler - INFO - Processing sitemap
+2025-04-06 17:19:10,110 - seo_crawler - ERROR - Error processing sitemap: not well-formed (invalid token): line 1, column 508
+2025-04-06 17:19:10,117 - seo_crawler - INFO - Processing sitemap: https://acentroservices.leprimescelte.com/sitemap_index.xml
+2025-04-06 17:19:10,651 - seo_crawler - INFO - Processing sitemap
+2025-04-06 17:19:10,651 - seo_crawler - ERROR - Error processing sitemap: not well-formed (invalid token): line 1, column 508
+2025-04-06 17:19:10,660 - seo_crawler - INFO - Processing sitemap: https://acentroservices.leprimescelte.com/sitemap.xml.gz
+2025-04-06 17:19:11,172 - seo_crawler - ERROR - Error processing sitemap: Not a gzipped file (b'<!')
+2025-04-06 17:19:11,177 - seo_crawler - INFO - Processing sitemap: https://acentroservices.leprimescelte.com/sitemap/sitemap.xml
+2025-04-06 17:19:11,723 - seo_crawler - INFO - Processing sitemap
+2025-04-06 17:19:11,723 - seo_crawler - ERROR - Error processing sitemap: not well-formed (invalid token): line 1, column 508
+2025-04-06 17:19:11,728 - seo_crawler - INFO - Processing sitemap: https://acentroservices.leprimescelte.com/sitemap.php
+2025-04-06 17:19:12,175 - seo_crawler - INFO - Processing sitemap
+2025-04-06 17:19:12,175 - seo_crawler - ERROR - Error processing sitemap: not well-formed (invalid token): line 1, column 508
+2025-04-06 17:19:12,180 - seo_crawler - INFO - Processing sitemap: https://acentroservices.leprimescelte.com/sitemap.txt
+2025-04-06 17:19:12,600 - seo_crawler - INFO - Processing sitemap
+2025-04-06 17:19:12,600 - seo_crawler - ERROR - Error processing sitemap: not well-formed (invalid token): line 1, column 508
+2025-04-06 17:19:12,606 - seo_crawler - INFO - Processing sitemap: https://acentroservices.leprimescelte.com/sitemap_index.xml.gz
+2025-04-06 17:19:13,049 - seo_crawler - ERROR - Error processing sitemap: Not a gzipped file (b'<!')
+2025-04-06 17:19:13,057 - seo_crawler - INFO - Processing sitemap: https://acentroservices.leprimescelte.com/wp-sitemap.xml
+2025-04-06 17:19:13,491 - seo_crawler - INFO - Processing sitemap
+2025-04-06 17:19:13,492 - seo_crawler - ERROR - Error processing sitemap: not well-formed (invalid token): line 1, column 508
+2025-04-06 17:19:13,495 - seo_crawler - INFO - Processing sitemap: https://acentroservices.leprimescelte.com/wp-sitemap-index.xml
+2025-04-06 17:19:14,038 - seo_crawler - INFO - Processing sitemap
+2025-04-06 17:19:14,039 - seo_crawler - ERROR - Error processing sitemap: not well-formed (invalid token): line 1, column 508
+2025-04-06 17:19:14,042 - seo_crawler - INFO - Processing sitemap: https://acentroservices.leprimescelte.com/sitemap-index.xml
+2025-04-06 17:19:14,462 - seo_crawler - INFO - Processing sitemap
+2025-04-06 17:19:14,462 - seo_crawler - ERROR - Error processing sitemap: not well-formed (invalid token): line 1, column 508
+2025-04-06 17:19:14,478 - seo_crawler - INFO - Crawling website: https://acentroservices.leprimescelte.com
+2025-04-06 17:19:14,478 - seo_crawler - INFO - Visiting URL: https://acentroservices.leprimescelte.com (depth: 0)
+2025-04-06 17:19:14,905 - seo_crawler - INFO - Visiting URL: https://acentroservices.leprimescelte.com/ (depth: 1)
+2025-04-06 17:19:15,233 - seo_crawler - INFO - Visiting URL: https://acentroservices.leprimescelte.com/pratiche-camera-commercio (depth: 1)
+2025-04-06 17:19:16,010 - seo_crawler - INFO - Visiting URL: https://acentroservices.leprimescelte.com/pratiche-agenzia-entrate (depth: 1)
+2025-04-06 17:19:16,780 - seo_crawler - INFO - Visiting URL: https://acentroservices.leprimescelte.com/pratiche-inps (depth: 1)
+2025-04-06 17:19:17,469 - seo_crawler - INFO - Visiting URL: https://acentroservices.leprimescelte.com/pratiche-comune (depth: 1)
+2025-04-06 17:19:18,130 - seo_crawler - INFO - Visiting URL: https://acentroservices.leprimescelte.com/pratiche-catastali (depth: 1)
+2025-04-06 17:19:19,053 - seo_crawler - INFO - Visiting URL: https://acentroservices.leprimescelte.com/servizi-digitali (depth: 1)
+2025-04-06 17:19:19,721 - seo_crawler - INFO - Visiting URL: https://acentroservices.leprimescelte.com/servizi-professionisti (depth: 1)
+2025-04-06 17:19:20,384 - seo_crawler - INFO - Visiting URL: https://acentroservices.leprimescelte.com/registrazione-marchi (depth: 1)
+2025-04-06 17:19:21,043 - seo_crawler - INFO - Visiting URL: https://acentroservices.leprimescelte.com/digipram (depth: 1)
+2025-04-06 17:19:21,916 - seo_crawler - INFO - Visiting URL: https://acentroservices.leprimescelte.com/entrare-nel-mercato-italiano (depth: 1)
+2025-04-06 17:19:22,664 - seo_crawler - INFO - Visiting URL: https://acentroservices.leprimescelte.com/chi-siamo (depth: 1)
+2025-04-06 17:19:23,337 - seo_crawler - INFO - Visiting URL: https://acentroservices.leprimescelte.com/perche-noi (depth: 1)
+2025-04-06 17:19:24,019 - seo_crawler - INFO - Visiting URL: https://acentroservices.leprimescelte.com/contattaci (depth: 1)
+2025-04-06 17:19:24,735 - seo_crawler - INFO - Visiting URL: https://acentroservices.leprimescelte.com/en (depth: 1)
+2025-04-06 17:19:25,407 - seo_crawler - INFO - Visiting URL: https://acentroservices.leprimescelte.com/#servizi (depth: 1)
+2025-04-06 17:19:25,725 - seo_crawler - INFO - Visiting URL: https://acentroservices.leprimescelte.com/en/pratiche-camera-commercio/ (depth: 2)
+2025-04-06 17:19:26,248 - seo_crawler - INFO - Visiting URL: https://acentroservices.leprimescelte.com/en/pratiche-agenzia-entrate/ (depth: 2)
+2025-04-06 17:19:27,165 - seo_crawler - INFO - Visiting URL: https://acentroservices.leprimescelte.com/en/pratiche-inps/ (depth: 2)
+2025-04-06 17:19:27,809 - seo_crawler - INFO - Visiting URL: https://acentroservices.leprimescelte.com/en/pratiche-comune/ (depth: 2)
+2025-04-06 17:19:28,437 - seo_crawler - INFO - Visiting URL: https://acentroservices.leprimescelte.com/en/pratiche-catastali/ (depth: 2)
+2025-04-06 17:19:29,070 - seo_crawler - INFO - Visiting URL: https://acentroservices.leprimescelte.com/en/servizi-digitali/ (depth: 2)
+2025-04-06 17:19:29,599 - seo_crawler - INFO - Visiting URL: https://acentroservices.leprimescelte.com/en/servizi-professionisti/ (depth: 2)
+2025-04-06 17:19:30,133 - seo_crawler - INFO - Visiting URL: https://acentroservices.leprimescelte.com/en/registrazione-marchi/ (depth: 2)
+2025-04-06 17:19:30,758 - seo_crawler - INFO - Visiting URL: https://acentroservices.leprimescelte.com/en/digipram/ (depth: 2)
+2025-04-06 17:19:31,295 - seo_crawler - INFO - Visiting URL: https://acentroservices.leprimescelte.com/en/entrare-nel-mercato-italiano/ (depth: 2)
+2025-04-06 17:19:31,722 - seo_crawler - INFO - Visiting URL: https://acentroservices.leprimescelte.com/en/chi-siamo/ (depth: 2)
+2025-04-06 17:19:32,240 - seo_crawler - INFO - Visiting URL: https://acentroservices.leprimescelte.com/en/perche-noi/ (depth: 2)
+2025-04-06 17:19:32,774 - seo_crawler - INFO - Visiting URL: https://acentroservices.leprimescelte.com/en/contattaci/ (depth: 2)
+2025-04-06 17:19:33,392 - seo_crawler - INFO - Visiting URL: https://acentroservices.leprimescelte.com/en/pratiche-camera-commercio (depth: 2)
+2025-04-06 17:19:33,946 - seo_crawler - INFO - Visiting URL: https://acentroservices.leprimescelte.com/en/pratiche-agenzia-entrate (depth: 2)
+2025-04-06 17:19:34,431 - seo_crawler - INFO - Visiting URL: https://acentroservices.leprimescelte.com/en/pratiche-inps (depth: 2)
+2025-04-06 17:19:34,884 - seo_crawler - INFO - Visiting URL: https://acentroservices.leprimescelte.com/en/pratiche-comune (depth: 2)
+2025-04-06 17:19:35,342 - seo_crawler - INFO - Visiting URL: https://acentroservices.leprimescelte.com/en/pratiche-catastali (depth: 2)
+2025-04-06 17:19:35,807 - seo_crawler - INFO - Visiting URL: https://acentroservices.leprimescelte.com/en/servizi-digitali (depth: 2)
+2025-04-06 17:19:36,277 - seo_crawler - INFO - Visiting URL: https://acentroservices.leprimescelte.com/en/servizi-professionisti (depth: 2)
+2025-04-06 17:19:36,841 - seo_crawler - INFO - Visiting URL: https://acentroservices.leprimescelte.com/en/registrazione-marchi (depth: 2)
+2025-04-06 17:19:37,274 - seo_crawler - INFO - Visiting URL: https://acentroservices.leprimescelte.com/en/digipram (depth: 2)
+2025-04-06 17:19:37,748 - seo_crawler - INFO - Visiting URL: https://acentroservices.leprimescelte.com/en/entering-italian-market (depth: 2)
+2025-04-06 17:19:38,455 - seo_crawler - INFO - Visiting URL: https://acentroservices.leprimescelte.com/en/chi-siamo (depth: 2)
+2025-04-06 17:19:39,026 - seo_crawler - INFO - Visiting URL: https://acentroservices.leprimescelte.com/en/perche-noi (depth: 2)
+2025-04-06 17:19:39,590 - seo_crawler - INFO - Visiting URL: https://acentroservices.leprimescelte.com/en/contattaci (depth: 2)
+2025-04-06 17:19:40,059 - seo_crawler - INFO - Visiting URL: https://acentroservices.leprimescelte.com/en/#servizi (depth: 2)
+2025-04-06 17:19:40,395 - seo_crawler - INFO - Visiting URL: https://acentroservices.leprimescelte.com/pratiche-camera-commercio/ (depth: 3)
+2025-04-06 17:19:40,707 - seo_crawler - INFO - Visiting URL: https://acentroservices.leprimescelte.com/en/ (depth: 3)
+2025-04-06 17:19:41,033 - seo_crawler - INFO - Visiting URL: https://acentroservices.leprimescelte.com/pratiche-agenzia-entrate/ (depth: 3)
+2025-04-06 17:19:41,356 - seo_crawler - INFO - Visiting URL: https://acentroservices.leprimescelte.com/pratiche-inps/ (depth: 3)
+2025-04-06 17:19:41,806 - seo_crawler - INFO - Visiting URL: https://acentroservices.leprimescelte.com/pratiche-comune/ (depth: 3)
+2025-04-06 17:19:42,178 - seo_crawler - INFO - Visiting URL: https://acentroservices.leprimescelte.com/pratiche-catastali/ (depth: 3)
+2025-04-06 17:19:42,501 - seo_crawler - INFO - Visiting URL: https://acentroservices.leprimescelte.com/servizi-digitali/ (depth: 3)
+2025-04-06 17:19:42,832 - seo_crawler - INFO - Visiting URL: https://acentroservices.leprimescelte.com/servizi-professionisti/ (depth: 3)
+2025-04-06 17:19:43,155 - seo_crawler - INFO - Visiting URL: https://acentroservices.leprimescelte.com/registrazione-marchi/ (depth: 3)
+2025-04-06 17:19:43,586 - seo_crawler - INFO - Visiting URL: https://acentroservices.leprimescelte.com/digipram/ (depth: 3)
+2025-04-06 17:19:43,909 - seo_crawler - INFO - Visiting URL: https://acentroservices.leprimescelte.com/en/contact (depth: 3)
+2025-04-06 17:19:44,451 - seo_crawler - INFO - Visiting URL: https://acentroservices.leprimescelte.com/chi-siamo/ (depth: 3)
+2025-04-06 17:19:44,903 - seo_crawler - INFO - Visiting URL: https://acentroservices.leprimescelte.com/perche-noi/ (depth: 3)
+2025-04-06 17:19:45,332 - seo_crawler - INFO - Visiting URL: https://acentroservices.leprimescelte.com/contattaci/ (depth: 3)
+2025-04-06 17:19:45,758 - seo_crawler - INFO - Visiting URL: https://acentroservices.leprimescelte.com/entering-italian-market/ (depth: 3)
+2025-04-06 17:19:46,357 - seo_crawler - INFO - Visiting URL: https://acentroservices.leprimescelte.com/en#contact (depth: 3)

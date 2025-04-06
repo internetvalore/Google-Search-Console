@@ -1,0 +1,9 @@
+2025-04-06 16:51:50,953 - seo_crawler - INFO - Processing sitemap: https://idrostar.net/sitemap.xml
+2025-04-06 16:51:53,822 - seo_crawler - INFO - Processing sitemap index
+2025-04-06 16:51:53,823 - seo_crawler - INFO - Processing sitemap: https://www.idrostar.net/post-sitemap.xml
+2025-04-06 16:51:54,470 - seo_crawler - INFO - Processing sitemap
+2025-04-06 16:51:54,471 - seo_crawler - INFO - Processing sitemap: https://www.idrostar.net/page-sitemap.xml
+2025-04-06 16:51:55,049 - seo_crawler - INFO - Processing sitemap
+2025-04-06 16:51:55,063 - seo_crawler - INFO - Crawling website: https://idrostar.net
+2025-04-06 16:51:55,066 - seo_crawler - INFO - Visiting URL: https://idrostar.net (depth: 0)
+2025-04-06 16:51:56,640 - seo_crawler - INFO - Visiting URL: https://idrostar.net/info@idrostar.net (depth: 1)
