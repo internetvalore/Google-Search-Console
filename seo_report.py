@@ -37,7 +37,7 @@ class ReportGenerator:
         # Create the output directory if it doesn't exist
         os.makedirs(output_dir, exist_ok=True)
     
-    def generate_seo_report(self, url, meta_analyzer, image_analyzer, links_analyzer, reachability_analyzer, topic_analyzer):
+    def generate_seo_report(self, url, meta_analyzer, image_analyzer, links_analyzer, reachability_analyzer, topic_analyzer, report_title=None):
         """
         Generate an SEO report.
         
@@ -48,6 +48,7 @@ class ReportGenerator:
             links_analyzer (LinksAnalyzer): The links analyzer
             reachability_analyzer (ReachabilityAnalyzer): The reachability analyzer
             topic_analyzer (MainTopicAnalyzer): The main topic analyzer
+            report_title (str, optional): Custom report title. If None, a default title will be used.
         
         Returns:
             str: The path to the generated report
@@ -61,7 +62,10 @@ class ReportGenerator:
         self._add_styles(doc)
         
         # Add title
-        self._add_title(doc, f"SEO Analysis Report: {url}")
+        if report_title:
+            self._add_title(doc, report_title)
+        else:
+            self._add_title(doc, f"SEO Analysis Report: {url}")
         
         # Add date
         self._add_date(doc)

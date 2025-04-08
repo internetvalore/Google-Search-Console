@@ -2617,43 +2617,631 @@ class SEOAnalysisTool:
     
     def generate_url_statistics_report(self):
         """Generate URL statistics report."""
-        # Implementation would go here
-        pass
+        if not self.url:
+            messagebox.showerror("Error", "Please validate a URL first")
+            return
+        
+        if not self.crawler_results:
+            messagebox.showerror("Error", "Please crawl the website first")
+            return
+        
+        self.set_status("Generating URL statistics report...", INFO_COLOR)
+        
+        # Clear the results text
+        self.clear_text(self.results_text)
+        self.append_text(self.results_text, "Generating URL statistics report...\n\n")
+        
+        # Create a progress bar
+        progress_frame = ttk.Frame(self.results_text.master)
+        self.results_text.window_create(tk.END, window=progress_frame)
+        self.append_text(self.results_text, "\n")
+        
+        progress_bar = ttk.Progressbar(progress_frame, mode="indeterminate", length=300)
+        progress_bar.pack(pady=10)
+        progress_bar.start()
+        
+        # Update the UI
+        self.root.update_idletasks()
+        
+        # Generate the report in a separate thread
+        def generate_report():
+            try:
+                # Create a ReportGenerator instance if not already done
+                if not self.report_generator:
+                    self.report_generator = ReportGenerator(REPORTS_DIR)
+                
+                # Generate the report
+                report_file = self.report_generator.generate_seo_report(
+                    self.url,
+                    self.meta_description_analyzer,
+                    self.image_analyzer,
+                    self.links_analyzer,
+                    self.reachability_analyzer,
+                    self.main_topic_analyzer,
+                    report_title=f"URL Statistics Report: {self.url}"
+                )
+                
+                # Stop the progress bar
+                progress_bar.stop()
+                progress_bar.destroy()
+                
+                # Update the results text
+                self.append_text(self.results_text, f"URL statistics report generated successfully!\n\n")
+                self.append_text(self.results_text, f"Report file: {report_file}\n")
+                
+                # Update the status
+                self.set_status("URL statistics report generated successfully", SUCCESS_COLOR)
+                
+                # Show a success message
+                messagebox.showinfo("Success", "URL statistics report generated successfully")
+                
+                # Open the report
+                os.startfile(report_file)
+            except Exception as e:
+                # Stop the progress bar
+                progress_bar.stop()
+                progress_bar.destroy()
+                
+                # Update the results text
+                self.append_text(self.results_text, f"Error generating URL statistics report: {str(e)}\n")
+                
+                # Update the status
+                self.set_status(f"Error generating URL statistics report: {str(e)}", ERROR_COLOR)
+                
+                # Show an error message
+                messagebox.showerror("Error", f"Error generating URL statistics report: {str(e)}")
+        
+        # Run the report generation in a separate thread
+        threading.Thread(target=generate_report).start()
     
     def generate_meta_description_report(self):
         """Generate meta description report."""
-        # Implementation would go here
-        pass
+        if not self.url:
+            messagebox.showerror("Error", "Please validate a URL first")
+            return
+        
+        if not self.crawler_results:
+            messagebox.showerror("Error", "Please crawl the website first")
+            return
+        
+        if not self.meta_description_analyzer:
+            messagebox.showerror("Error", "Please analyze meta descriptions first")
+            return
+        
+        self.set_status("Generating meta description report...", INFO_COLOR)
+        
+        # Clear the results text
+        self.clear_text(self.results_text)
+        self.append_text(self.results_text, "Generating meta description report...\n\n")
+        
+        # Create a progress bar
+        progress_frame = ttk.Frame(self.results_text.master)
+        self.results_text.window_create(tk.END, window=progress_frame)
+        self.append_text(self.results_text, "\n")
+        
+        progress_bar = ttk.Progressbar(progress_frame, mode="indeterminate", length=300)
+        progress_bar.pack(pady=10)
+        progress_bar.start()
+        
+        # Update the UI
+        self.root.update_idletasks()
+        
+        # Generate the report in a separate thread
+        def generate_report():
+            try:
+                # Create a ReportGenerator instance if not already done
+                if not self.report_generator:
+                    self.report_generator = ReportGenerator(REPORTS_DIR)
+                
+                # Generate the report
+                report_file = self.report_generator.generate_seo_report(
+                    self.url,
+                    self.meta_description_analyzer,
+                    None,  # No image analyzer
+                    None,  # No links analyzer
+                    None,  # No reachability analyzer
+                    None,  # No topic analyzer
+                    report_title=f"Meta Description Report: {self.url}"
+                )
+                
+                # Stop the progress bar
+                progress_bar.stop()
+                progress_bar.destroy()
+                
+                # Update the results text
+                self.append_text(self.results_text, f"Meta description report generated successfully!\n\n")
+                self.append_text(self.results_text, f"Report file: {report_file}\n")
+                
+                # Update the status
+                self.set_status("Meta description report generated successfully", SUCCESS_COLOR)
+                
+                # Show a success message
+                messagebox.showinfo("Success", "Meta description report generated successfully")
+                
+                # Open the report
+                os.startfile(report_file)
+            except Exception as e:
+                # Stop the progress bar
+                progress_bar.stop()
+                progress_bar.destroy()
+                
+                # Update the results text
+                self.append_text(self.results_text, f"Error generating meta description report: {str(e)}\n")
+                
+                # Update the status
+                self.set_status(f"Error generating meta description report: {str(e)}", ERROR_COLOR)
+                
+                # Show an error message
+                messagebox.showerror("Error", f"Error generating meta description report: {str(e)}")
+        
+        # Run the report generation in a separate thread
+        threading.Thread(target=generate_report).start()
     
     def generate_images_report(self):
         """Generate images report."""
-        # Implementation would go here
-        pass
+        if not self.url:
+            messagebox.showerror("Error", "Please validate a URL first")
+            return
+        
+        if not self.crawler_results:
+            messagebox.showerror("Error", "Please crawl the website first")
+            return
+        
+        if not self.image_analyzer:
+            messagebox.showerror("Error", "Please analyze images first")
+            return
+        
+        self.set_status("Generating images report...", INFO_COLOR)
+        
+        # Clear the results text
+        self.clear_text(self.results_text)
+        self.append_text(self.results_text, "Generating images report...\n\n")
+        
+        # Create a progress bar
+        progress_frame = ttk.Frame(self.results_text.master)
+        self.results_text.window_create(tk.END, window=progress_frame)
+        self.append_text(self.results_text, "\n")
+        
+        progress_bar = ttk.Progressbar(progress_frame, mode="indeterminate", length=300)
+        progress_bar.pack(pady=10)
+        progress_bar.start()
+        
+        # Update the UI
+        self.root.update_idletasks()
+        
+        # Generate the report in a separate thread
+        def generate_report():
+            try:
+                # Create a ReportGenerator instance if not already done
+                if not self.report_generator:
+                    self.report_generator = ReportGenerator(REPORTS_DIR)
+                
+                # Generate the report
+                report_file = self.report_generator.generate_seo_report(
+                    self.url,
+                    None,  # No meta description analyzer
+                    self.image_analyzer,
+                    None,  # No links analyzer
+                    None,  # No reachability analyzer
+                    None,  # No topic analyzer
+                    report_title=f"Images Report: {self.url}"
+                )
+                
+                # Stop the progress bar
+                progress_bar.stop()
+                progress_bar.destroy()
+                
+                # Update the results text
+                self.append_text(self.results_text, f"Images report generated successfully!\n\n")
+                self.append_text(self.results_text, f"Report file: {report_file}\n")
+                
+                # Update the status
+                self.set_status("Images report generated successfully", SUCCESS_COLOR)
+                
+                # Show a success message
+                messagebox.showinfo("Success", "Images report generated successfully")
+                
+                # Open the report
+                os.startfile(report_file)
+            except Exception as e:
+                # Stop the progress bar
+                progress_bar.stop()
+                progress_bar.destroy()
+                
+                # Update the results text
+                self.append_text(self.results_text, f"Error generating images report: {str(e)}\n")
+                
+                # Update the status
+                self.set_status(f"Error generating images report: {str(e)}", ERROR_COLOR)
+                
+                # Show an error message
+                messagebox.showerror("Error", f"Error generating images report: {str(e)}")
+        
+        # Run the report generation in a separate thread
+        threading.Thread(target=generate_report).start()
     
     def generate_links_report(self):
         """Generate links report."""
-        # Implementation would go here
-        pass
+        if not self.url:
+            messagebox.showerror("Error", "Please validate a URL first")
+            return
+        
+        if not self.crawler_results:
+            messagebox.showerror("Error", "Please crawl the website first")
+            return
+        
+        if not self.links_analyzer:
+            messagebox.showerror("Error", "Please analyze links first")
+            return
+        
+        self.set_status("Generating links report...", INFO_COLOR)
+        
+        # Clear the results text
+        self.clear_text(self.results_text)
+        self.append_text(self.results_text, "Generating links report...\n\n")
+        
+        # Create a progress bar
+        progress_frame = ttk.Frame(self.results_text.master)
+        self.results_text.window_create(tk.END, window=progress_frame)
+        self.append_text(self.results_text, "\n")
+        
+        progress_bar = ttk.Progressbar(progress_frame, mode="indeterminate", length=300)
+        progress_bar.pack(pady=10)
+        progress_bar.start()
+        
+        # Update the UI
+        self.root.update_idletasks()
+        
+        # Generate the report in a separate thread
+        def generate_report():
+            try:
+                # Create a ReportGenerator instance if not already done
+                if not self.report_generator:
+                    self.report_generator = ReportGenerator(REPORTS_DIR)
+                
+                # Generate the report
+                report_file = self.report_generator.generate_seo_report(
+                    self.url,
+                    None,  # No meta description analyzer
+                    None,  # No image analyzer
+                    self.links_analyzer,
+                    None,  # No reachability analyzer
+                    None,  # No topic analyzer
+                    report_title=f"Links Report: {self.url}"
+                )
+                
+                # Stop the progress bar
+                progress_bar.stop()
+                progress_bar.destroy()
+                
+                # Update the results text
+                self.append_text(self.results_text, f"Links report generated successfully!\n\n")
+                self.append_text(self.results_text, f"Report file: {report_file}\n")
+                
+                # Update the status
+                self.set_status("Links report generated successfully", SUCCESS_COLOR)
+                
+                # Show a success message
+                messagebox.showinfo("Success", "Links report generated successfully")
+                
+                # Open the report
+                os.startfile(report_file)
+            except Exception as e:
+                # Stop the progress bar
+                progress_bar.stop()
+                progress_bar.destroy()
+                
+                # Update the results text
+                self.append_text(self.results_text, f"Error generating links report: {str(e)}\n")
+                
+                # Update the status
+                self.set_status(f"Error generating links report: {str(e)}", ERROR_COLOR)
+                
+                # Show an error message
+                messagebox.showerror("Error", f"Error generating links report: {str(e)}")
+        
+        # Run the report generation in a separate thread
+        threading.Thread(target=generate_report).start()
     
     def generate_reachability_report(self):
         """Generate reachability report."""
-        # Implementation would go here
-        pass
+        if not self.url:
+            messagebox.showerror("Error", "Please validate a URL first")
+            return
+        
+        if not self.crawler_results:
+            messagebox.showerror("Error", "Please crawl the website first")
+            return
+        
+        if not self.reachability_analyzer:
+            messagebox.showerror("Error", "Please analyze reachability first")
+            return
+        
+        self.set_status("Generating reachability report...", INFO_COLOR)
+        
+        # Clear the results text
+        self.clear_text(self.results_text)
+        self.append_text(self.results_text, "Generating reachability report...\n\n")
+        
+        # Create a progress bar
+        progress_frame = ttk.Frame(self.results_text.master)
+        self.results_text.window_create(tk.END, window=progress_frame)
+        self.append_text(self.results_text, "\n")
+        
+        progress_bar = ttk.Progressbar(progress_frame, mode="indeterminate", length=300)
+        progress_bar.pack(pady=10)
+        progress_bar.start()
+        
+        # Update the UI
+        self.root.update_idletasks()
+        
+        # Generate the report in a separate thread
+        def generate_report():
+            try:
+                # Create a ReportGenerator instance if not already done
+                if not self.report_generator:
+                    self.report_generator = ReportGenerator(REPORTS_DIR)
+                
+                # Generate the report
+                report_file = self.report_generator.generate_seo_report(
+                    self.url,
+                    None,  # No meta description analyzer
+                    None,  # No image analyzer
+                    None,  # No links analyzer
+                    self.reachability_analyzer,
+                    None,  # No topic analyzer
+                    report_title=f"Reachability Report: {self.url}"
+                )
+                
+                # Stop the progress bar
+                progress_bar.stop()
+                progress_bar.destroy()
+                
+                # Update the results text
+                self.append_text(self.results_text, f"Reachability report generated successfully!\n\n")
+                self.append_text(self.results_text, f"Report file: {report_file}\n")
+                
+                # Update the status
+                self.set_status("Reachability report generated successfully", SUCCESS_COLOR)
+                
+                # Show a success message
+                messagebox.showinfo("Success", "Reachability report generated successfully")
+                
+                # Open the report
+                os.startfile(report_file)
+            except Exception as e:
+                # Stop the progress bar
+                progress_bar.stop()
+                progress_bar.destroy()
+                
+                # Update the results text
+                self.append_text(self.results_text, f"Error generating reachability report: {str(e)}\n")
+                
+                # Update the status
+                self.set_status(f"Error generating reachability report: {str(e)}", ERROR_COLOR)
+                
+                # Show an error message
+                messagebox.showerror("Error", f"Error generating reachability report: {str(e)}")
+        
+        # Run the report generation in a separate thread
+        threading.Thread(target=generate_report).start()
     
     def generate_main_topic_report(self):
         """Generate main topic report."""
-        # Implementation would go here
-        pass
+        if not self.url:
+            messagebox.showerror("Error", "Please validate a URL first")
+            return
+        
+        if not self.crawler_results:
+            messagebox.showerror("Error", "Please crawl the website first")
+            return
+        
+        if not self.main_topic_analyzer:
+            messagebox.showerror("Error", "Please analyze main topics first")
+            return
+        
+        self.set_status("Generating main topic report...", INFO_COLOR)
+        
+        # Clear the results text
+        self.clear_text(self.results_text)
+        self.append_text(self.results_text, "Generating main topic report...\n\n")
+        
+        # Create a progress bar
+        progress_frame = ttk.Frame(self.results_text.master)
+        self.results_text.window_create(tk.END, window=progress_frame)
+        self.append_text(self.results_text, "\n")
+        
+        progress_bar = ttk.Progressbar(progress_frame, mode="indeterminate", length=300)
+        progress_bar.pack(pady=10)
+        progress_bar.start()
+        
+        # Update the UI
+        self.root.update_idletasks()
+        
+        # Generate the report in a separate thread
+        def generate_report():
+            try:
+                # Create a ReportGenerator instance if not already done
+                if not self.report_generator:
+                    self.report_generator = ReportGenerator(REPORTS_DIR)
+                
+                # Generate the report
+                report_file = self.report_generator.generate_seo_report(
+                    self.url,
+                    None,  # No meta description analyzer
+                    None,  # No image analyzer
+                    None,  # No links analyzer
+                    None,  # No reachability analyzer
+                    self.main_topic_analyzer,
+                    report_title=f"Main Topic Report: {self.url}"
+                )
+                
+                # Stop the progress bar
+                progress_bar.stop()
+                progress_bar.destroy()
+                
+                # Update the results text
+                self.append_text(self.results_text, f"Main topic report generated successfully!\n\n")
+                self.append_text(self.results_text, f"Report file: {report_file}\n")
+                
+                # Update the status
+                self.set_status("Main topic report generated successfully", SUCCESS_COLOR)
+                
+                # Show a success message
+                messagebox.showinfo("Success", "Main topic report generated successfully")
+                
+                # Open the report
+                os.startfile(report_file)
+            except Exception as e:
+                # Stop the progress bar
+                progress_bar.stop()
+                progress_bar.destroy()
+                
+                # Update the results text
+                self.append_text(self.results_text, f"Error generating main topic report: {str(e)}\n")
+                
+                # Update the status
+                self.set_status(f"Error generating main topic report: {str(e)}", ERROR_COLOR)
+                
+                # Show an error message
+                messagebox.showerror("Error", f"Error generating main topic report: {str(e)}")
+        
+        # Run the report generation in a separate thread
+        threading.Thread(target=generate_report).start()
     
     def generate_search_console_report(self):
         """Generate Search Console report."""
-        # Implementation would go here
-        pass
+        if not self.search_console_analyzer:
+            messagebox.showerror("Error", "Please load and analyze Search Console data first")
+            return
+        
+        self.set_status("Generating Search Console report...", INFO_COLOR)
+        
+        # Clear the results text
+        self.clear_text(self.results_text)
+        self.append_text(self.results_text, "Generating Search Console report...\n\n")
+        
+        # Create a progress bar
+        progress_frame = ttk.Frame(self.results_text.master)
+        self.results_text.window_create(tk.END, window=progress_frame)
+        self.append_text(self.results_text, "\n")
+        
+        progress_bar = ttk.Progressbar(progress_frame, mode="indeterminate", length=300)
+        progress_bar.pack(pady=10)
+        progress_bar.start()
+        
+        # Update the UI
+        self.root.update_idletasks()
+        
+        # Generate the report in a separate thread
+        def generate_report():
+            try:
+                # Create a ReportGenerator instance if not already done
+                if not self.report_generator:
+                    self.report_generator = ReportGenerator(REPORTS_DIR)
+                
+                # Generate the report
+                report_file = self.report_generator.generate_search_console_report(self.search_console_analyzer)
+                
+                # Stop the progress bar
+                progress_bar.stop()
+                progress_bar.destroy()
+                
+                # Update the results text
+                self.append_text(self.results_text, f"Search Console report generated successfully!\n\n")
+                self.append_text(self.results_text, f"Report file: {report_file}\n")
+                
+                # Update the status
+                self.set_status("Search Console report generated successfully", SUCCESS_COLOR)
+                
+                # Show a success message
+                messagebox.showinfo("Success", "Search Console report generated successfully")
+                
+                # Open the report
+                os.startfile(report_file)
+            except Exception as e:
+                # Stop the progress bar
+                progress_bar.stop()
+                progress_bar.destroy()
+                
+                # Update the results text
+                self.append_text(self.results_text, f"Error generating Search Console report: {str(e)}\n")
+                
+                # Update the status
+                self.set_status(f"Error generating Search Console report: {str(e)}", ERROR_COLOR)
+                
+                # Show an error message
+                messagebox.showerror("Error", f"Error generating Search Console report: {str(e)}")
+        
+        # Run the report generation in a separate thread
+        threading.Thread(target=generate_report).start()
     
     def generate_semrush_report(self):
         """Generate SEMrush report."""
-        # Implementation would go here
-        pass
+        if not self.semrush_analyzer:
+            messagebox.showerror("Error", "Please load and analyze SEMrush data first")
+            return
+        
+        self.set_status("Generating SEMrush report...", INFO_COLOR)
+        
+        # Clear the results text
+        self.clear_text(self.results_text)
+        self.append_text(self.results_text, "Generating SEMrush report...\n\n")
+        
+        # Create a progress bar
+        progress_frame = ttk.Frame(self.results_text.master)
+        self.results_text.window_create(tk.END, window=progress_frame)
+        self.append_text(self.results_text, "\n")
+        
+        progress_bar = ttk.Progressbar(progress_frame, mode="indeterminate", length=300)
+        progress_bar.pack(pady=10)
+        progress_bar.start()
+        
+        # Update the UI
+        self.root.update_idletasks()
+        
+        # Generate the report in a separate thread
+        def generate_report():
+            try:
+                # Create a ReportGenerator instance if not already done
+                if not self.report_generator:
+                    self.report_generator = ReportGenerator(REPORTS_DIR)
+                
+                # Generate the report
+                report_file = self.report_generator.generate_semrush_report(self.semrush_analyzer)
+                
+                # Stop the progress bar
+                progress_bar.stop()
+                progress_bar.destroy()
+                
+                # Update the results text
+                self.append_text(self.results_text, f"SEMrush report generated successfully!\n\n")
+                self.append_text(self.results_text, f"Report file: {report_file}\n")
+                
+                # Update the status
+                self.set_status("SEMrush report generated successfully", SUCCESS_COLOR)
+                
+                # Show a success message
+                messagebox.showinfo("Success", "SEMrush report generated successfully")
+                
+                # Open the report
+                os.startfile(report_file)
+            except Exception as e:
+                # Stop the progress bar
+                progress_bar.stop()
+                progress_bar.destroy()
+                
+                # Update the results text
+                self.append_text(self.results_text, f"Error generating SEMrush report: {str(e)}\n")
+                
+                # Update the status
+                self.set_status(f"Error generating SEMrush report: {str(e)}", ERROR_COLOR)
+                
+                # Show an error message
+                messagebox.showerror("Error", f"Error generating SEMrush report: {str(e)}")
+        
+        # Run the report generation in a separate thread
+        threading.Thread(target=generate_report).start()
     
     def generate_comprehensive_report(self):
         """Generate comprehensive report."""
