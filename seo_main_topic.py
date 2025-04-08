@@ -46,6 +46,16 @@ class MainTopicAnalyzer:
         except LookupError:
             nltk.download('punkt')
         
+        # Explicitly download punkt_tab if it's being requested
+        try:
+            nltk.data.find('tokenizers/punkt_tab')
+        except LookupError:
+            try:
+                nltk.download('punkt_tab')
+            except:
+                # If punkt_tab doesn't exist, we'll handle it in preprocess_text
+                self.logger.warning("Could not download punkt_tab resource, will use alternative tokenization")
+        
         try:
             nltk.data.find('corpora/stopwords')
         except LookupError:
@@ -181,8 +191,13 @@ class MainTopicAnalyzer:
         # Remove punctuation
         text = text.translate(str.maketrans("", "", string.punctuation))
         
-        # Tokenize
-        tokens = word_tokenize(text)
+        # Tokenize - use a fallback method if word_tokenize fails
+        try:
+            tokens = word_tokenize(text)
+        except LookupError:
+            # Simple fallback tokenization
+            self.logger.warning("Using fallback tokenization method")
+            tokens = text.split()
         
         # Remove stop words
         tokens = [token for token in tokens if token not in self.stop_words]

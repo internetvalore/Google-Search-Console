@@ -1,0 +1,6 @@
+@echo off
+echo Activating virtual environment...
+call venv\Scripts\activate
+echo Starting SEO Analysis Tool...
+python main.py
+pause

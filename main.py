@@ -1635,9 +1635,6 @@ class SEOAnalysisTool:
         self.clear_text(self.results_text)
         self.append_text(self.results_text, f"Loading Search Console data from: {sc_file}...\n\n")
         
-        # In a real implementation, this would use the SearchConsoleData class
-        # For the stub implementation, we'll just simulate loading
-        
         # Create a progress bar
         progress_frame = ttk.Frame(self.results_text.master)
         self.results_text.window_create(tk.END, window=progress_frame)
@@ -1650,66 +1647,72 @@ class SEOAnalysisTool:
         # Update the UI
         self.root.update_idletasks()
         
-        # Simulate loading with a delay
-        def simulate_loading():
-            # Simulate loading delay
-            time.sleep(2)
-            
-            # Stop the progress bar
-            progress_bar.stop()
-            progress_bar.destroy()
-            
-            # Create a simulated search console data object
-            self.search_console_data = {
-                "file_path": sc_file,
-                "total_queries": 1000,
-                "total_landing_pages": 50,
-                "total_impressions": 50000,
-                "total_clicks": 2500,
-                "avg_position": 15.3,
-                "queries": [
-                    {"query": "seo tools", "impressions": 1200, "clicks": 80, "position": 5.2},
-                    {"query": "digital marketing agency", "impressions": 950, "clicks": 65, "position": 6.1},
-                    {"query": "web development services", "impressions": 850, "clicks": 55, "position": 7.3},
-                    {"query": "content marketing strategy", "impressions": 750, "clicks": 45, "position": 8.5},
-                    {"query": "analytics dashboard", "impressions": 650, "clicks": 35, "position": 9.7},
-                ],
-                "landing_pages": [
-                    {"url": "https://example.com/", "impressions": 5000, "clicks": 300, "position": 4.2},
-                    {"url": "https://example.com/services", "impressions": 4000, "clicks": 250, "position": 5.3},
-                    {"url": "https://example.com/blog", "impressions": 3000, "clicks": 200, "position": 6.4},
-                    {"url": "https://example.com/about", "impressions": 2000, "clicks": 150, "position": 7.5},
-                    {"url": "https://example.com/contact", "impressions": 1000, "clicks": 100, "position": 8.6},
-                ]
-            }
-            
-            # Update the results text
-            self.append_text(self.results_text, "Search Console Data Summary:\n\n")
-            self.append_text(self.results_text, f"Total Queries: {self.search_console_data['total_queries']}\n")
-            self.append_text(self.results_text, f"Total Landing Pages: {self.search_console_data['total_landing_pages']}\n")
-            self.append_text(self.results_text, f"Total Impressions: {self.search_console_data['total_impressions']}\n")
-            self.append_text(self.results_text, f"Total Clicks: {self.search_console_data['total_clicks']}\n")
-            self.append_text(self.results_text, f"Average Position: {self.search_console_data['avg_position']:.1f}\n\n")
-            
-            self.append_text(self.results_text, "Top Queries by Impressions:\n")
-            for query in self.search_console_data['queries']:
-                self.append_text(self.results_text, f"- {query['query']}: {query['impressions']} impressions, {query['clicks']} clicks, position {query['position']:.1f}\n")
-            
-            self.append_text(self.results_text, "\nTop Landing Pages by Impressions:\n")
-            for page in self.search_console_data['landing_pages']:
-                self.append_text(self.results_text, f"- {page['url']}: {page['impressions']} impressions, {page['clicks']} clicks, position {page['position']:.1f}\n")
-            
-            # Update the status
-            self.set_status("Search Console data loaded successfully", SUCCESS_COLOR)
-            
-            # Show a success message
-            messagebox.showinfo("Success", "Search Console data loaded successfully")
-            
-            # Update button states
-            self.update_button_states()
+        # Perform the actual loading in a separate thread
+        def perform_loading():
+            try:
+                # Create a SearchConsoleData instance
+                sc_data = SearchConsoleData(sc_file)
+                
+                # Load the data
+                load_results = sc_data.load()
+                
+                # Stop the progress bar
+                progress_bar.stop()
+                progress_bar.destroy()
+                
+                if load_results["success"]:
+                    # Store the search console data
+                    self.search_console_data = sc_data
+                    
+                    # Update the results text
+                    self.append_text(self.results_text, "Search Console Data Summary:\n\n")
+                    self.append_text(self.results_text, f"Total Queries: {load_results['total_queries']}\n")
+                    self.append_text(self.results_text, f"Total Landing Pages: {load_results['total_landing_pages']}\n")
+                    self.append_text(self.results_text, f"Total Impressions: {load_results['total_impressions']}\n")
+                    self.append_text(self.results_text, f"Total Clicks: {load_results['total_clicks']}\n")
+                    self.append_text(self.results_text, f"Average Position: {load_results['avg_position']:.1f}\n\n")
+                    
+                    self.append_text(self.results_text, "Top Queries by Impressions:\n")
+                    for query in load_results['queries'][:5]:  # Show top 5 queries
+                        self.append_text(self.results_text, f"- {query['Query']}: {query['Impressions']} impressions, {query['Url Clicks']} clicks, position {query['Average Position']:.1f}\n")
+                    
+                    self.append_text(self.results_text, "\nTop Landing Pages by Impressions:\n")
+                    for page in load_results['landing_pages'][:5]:  # Show top 5 landing pages
+                        self.append_text(self.results_text, f"- {page['Landing Page']}: {page['Impressions']} impressions, {page['Url Clicks']} clicks, position {page['Average Position']:.1f}\n")
+                    
+                    # Update the status
+                    self.set_status("Search Console data loaded successfully", SUCCESS_COLOR)
+                    
+                    # Show a success message
+                    messagebox.showinfo("Success", "Search Console data loaded successfully")
+                else:
+                    # Update the results text
+                    self.append_text(self.results_text, f"Error loading Search Console data: {load_results['message']}\n")
+                    
+                    # Update the status
+                    self.set_status(f"Error loading Search Console data: {load_results['message']}", ERROR_COLOR)
+                    
+                    # Show an error message
+                    messagebox.showerror("Error", f"Error loading Search Console data: {load_results['message']}")
+                
+                # Update button states
+                self.update_button_states()
+            except Exception as e:
+                # Stop the progress bar
+                progress_bar.stop()
+                progress_bar.destroy()
+                
+                # Update the results text
+                self.append_text(self.results_text, f"Error loading Search Console data: {str(e)}\n")
+                
+                # Update the status
+                self.set_status(f"Error loading Search Console data: {str(e)}", ERROR_COLOR)
+                
+                # Show an error message
+                messagebox.showerror("Error", f"Error loading Search Console data: {str(e)}")
         
-        # Run the simulation in a separate thread
-        threading.Thread(target=simulate_loading).start()
+        # Run the loading in a separate thread
+        threading.Thread(target=perform_loading).start()
     
     def load_old_search_console_data(self):
         """Load old Search Console data for comparison."""
@@ -1729,8 +1732,96 @@ class SEOAnalysisTool:
         self.clear_text(self.results_text)
         self.append_text(self.results_text, f"Loading old Search Console data from: {sc_old_file}...\n\n")
         
-        # In a real implementation, this would use the SearchConsoleData class
-        # For the stub implementation, we'll just simulate loading
+        # Create a progress bar
+        progress_frame = ttk.Frame(self.results_text.master)
+        self.results_text.window_create(tk.END, window=progress_frame)
+        self.append_text(self.results_text, "\n")
+        
+        progress_bar = ttk.Progressbar(progress_frame, mode="indeterminate", length=300)
+        progress_bar.pack(pady=10)
+        progress_bar.start()
+        
+        # Update the UI
+        self.root.update_idletasks()
+        
+        # Perform the actual loading in a separate thread
+        def perform_loading():
+            try:
+                # Create a SearchConsoleData instance
+                sc_data_old = SearchConsoleData(sc_old_file)
+                
+                # Load the data
+                load_results = sc_data_old.load()
+                
+                # Stop the progress bar
+                progress_bar.stop()
+                progress_bar.destroy()
+                
+                if load_results["success"]:
+                    # Store the old search console data
+                    self.search_console_data_old = sc_data_old
+                    
+                    # Update the results text
+                    self.append_text(self.results_text, "Old Search Console Data Summary:\n\n")
+                    self.append_text(self.results_text, f"Total Queries: {load_results['total_queries']}\n")
+                    self.append_text(self.results_text, f"Total Landing Pages: {load_results['total_landing_pages']}\n")
+                    self.append_text(self.results_text, f"Total Impressions: {load_results['total_impressions']}\n")
+                    self.append_text(self.results_text, f"Total Clicks: {load_results['total_clicks']}\n")
+                    self.append_text(self.results_text, f"Average Position: {load_results['avg_position']:.1f}\n\n")
+                    
+                    self.append_text(self.results_text, "Top Queries by Impressions:\n")
+                    for query in load_results['queries'][:5]:  # Show top 5 queries
+                        self.append_text(self.results_text, f"- {query['Query']}: {query['Impressions']} impressions, {query['Url Clicks']} clicks, position {query['Average Position']:.1f}\n")
+                    
+                    self.append_text(self.results_text, "\nTop Landing Pages by Impressions:\n")
+                    for page in load_results['landing_pages'][:5]:  # Show top 5 landing pages
+                        self.append_text(self.results_text, f"- {page['Landing Page']}: {page['Impressions']} impressions, {page['Url Clicks']} clicks, position {page['Average Position']:.1f}\n")
+                    
+                    # Update the status
+                    self.set_status("Old Search Console data loaded successfully", SUCCESS_COLOR)
+                    
+                    # Show a success message
+                    messagebox.showinfo("Success", "Old Search Console data loaded successfully")
+                else:
+                    # Update the results text
+                    self.append_text(self.results_text, f"Error loading old Search Console data: {load_results['message']}\n")
+                    
+                    # Update the status
+                    self.set_status(f"Error loading old Search Console data: {load_results['message']}", ERROR_COLOR)
+                    
+                    # Show an error message
+                    messagebox.showerror("Error", f"Error loading old Search Console data: {load_results['message']}")
+                
+                # Update button states
+                self.update_button_states()
+            except Exception as e:
+                # Stop the progress bar
+                progress_bar.stop()
+                progress_bar.destroy()
+                
+                # Update the results text
+                self.append_text(self.results_text, f"Error loading old Search Console data: {str(e)}\n")
+                
+                # Update the status
+                self.set_status(f"Error loading old Search Console data: {str(e)}", ERROR_COLOR)
+                
+                # Show an error message
+                messagebox.showerror("Error", f"Error loading old Search Console data: {str(e)}")
+        
+        # Run the loading in a separate thread
+        threading.Thread(target=perform_loading).start()
+    
+    def cluster_search_console_queries(self):
+        """Cluster Search Console queries."""
+        if not self.search_console_data:
+            messagebox.showerror("Error", "Please load Search Console data first")
+            return
+        
+        self.set_status("Clustering Search Console queries...", INFO_COLOR)
+        
+        # Clear the results text
+        self.clear_text(self.results_text)
+        self.append_text(self.results_text, "Clustering Search Console queries...\n\n")
         
         # Create a progress bar
         progress_frame = ttk.Frame(self.results_text.master)
@@ -1744,86 +1835,286 @@ class SEOAnalysisTool:
         # Update the UI
         self.root.update_idletasks()
         
-        # Simulate loading with a delay
-        def simulate_loading():
-            # Simulate loading delay
-            time.sleep(2)
-            
-            # Stop the progress bar
-            progress_bar.stop()
-            progress_bar.destroy()
-            
-            # Create a simulated old search console data object
-            self.search_console_data_old = {
-                "file_path": sc_old_file,
-                "total_queries": 900,
-                "total_landing_pages": 45,
-                "total_impressions": 45000,
-                "total_clicks": 2200,
-                "avg_position": 16.5,
-                "queries": [
-                    {"query": "seo tools", "impressions": 1100, "clicks": 70, "position": 6.2},
-                    {"query": "digital marketing agency", "impressions": 850, "clicks": 55, "position": 7.1},
-                    {"query": "web development services", "impressions": 750, "clicks": 45, "position": 8.3},
-                    {"query": "content marketing strategy", "impressions": 650, "clicks": 35, "position": 9.5},
-                    {"query": "analytics dashboard", "impressions": 550, "clicks": 25, "position": 10.7},
-                ],
-                "landing_pages": [
-                    {"url": "https://example.com/", "impressions": 4500, "clicks": 270, "position": 5.2},
-                    {"url": "https://example.com/services", "impressions": 3500, "clicks": 220, "position": 6.3},
-                    {"url": "https://example.com/blog", "impressions": 2500, "clicks": 170, "position": 7.4},
-                    {"url": "https://example.com/about", "impressions": 1500, "clicks": 120, "position": 8.5},
-                    {"url": "https://example.com/contact", "impressions": 500, "clicks": 70, "position": 9.6},
-                ]
-            }
-            
-            # Update the results text
-            self.append_text(self.results_text, "Old Search Console Data Summary:\n\n")
-            self.append_text(self.results_text, f"Total Queries: {self.search_console_data_old['total_queries']}\n")
-            self.append_text(self.results_text, f"Total Landing Pages: {self.search_console_data_old['total_landing_pages']}\n")
-            self.append_text(self.results_text, f"Total Impressions: {self.search_console_data_old['total_impressions']}\n")
-            self.append_text(self.results_text, f"Total Clicks: {self.search_console_data_old['total_clicks']}\n")
-            self.append_text(self.results_text, f"Average Position: {self.search_console_data_old['avg_position']:.1f}\n\n")
-            
-            self.append_text(self.results_text, "Top Queries by Impressions:\n")
-            for query in self.search_console_data_old['queries']:
-                self.append_text(self.results_text, f"- {query['query']}: {query['impressions']} impressions, {query['clicks']} clicks, position {query['position']:.1f}\n")
-            
-            self.append_text(self.results_text, "\nTop Landing Pages by Impressions:\n")
-            for page in self.search_console_data_old['landing_pages']:
-                self.append_text(self.results_text, f"- {page['url']}: {page['impressions']} impressions, {page['clicks']} clicks, position {page['position']:.1f}\n")
-            
-            # Update the status
-            self.set_status("Old Search Console data loaded successfully", SUCCESS_COLOR)
-            
-            # Show a success message
-            messagebox.showinfo("Success", "Old Search Console data loaded successfully")
-            
-            # Update button states
-            self.update_button_states()
+        # Perform the clustering in a separate thread
+        def perform_clustering():
+            try:
+                # Create a SearchConsoleAnalyzer if not already done
+                if not self.search_console_analyzer:
+                    self.search_console_analyzer = SearchConsoleAnalyzer(self.search_console_data)
+                
+                # Cluster the queries
+                n_clusters = 10  # Default number of clusters
+                self.search_console_analyzer.cluster_queries(n_clusters=n_clusters)
+                
+                # Get the clusters
+                clusters = self.search_console_analyzer.get_clusters()
+                
+                # Stop the progress bar
+                progress_bar.stop()
+                progress_bar.destroy()
+                
+                # Update the results text
+                self.append_text(self.results_text, f"Clustered {len(self.search_console_data.get_queries())} queries into {len(clusters)} clusters\n\n")
+                
+                self.append_text(self.results_text, "Top Clusters by Impressions:\n")
+                for i, cluster in enumerate(clusters[:5]):  # Show top 5 clusters
+                    self.append_text(self.results_text, f"Cluster {i+1}: {cluster['queries']} queries, {cluster['impressions']} impressions\n")
+                    self.append_text(self.results_text, f"  Top queries: {', '.join(cluster['top_queries'])}\n\n")
+                
+                # Update the status
+                self.set_status("Search Console queries clustered successfully", SUCCESS_COLOR)
+                
+                # Show a success message
+                messagebox.showinfo("Success", "Search Console queries clustered successfully")
+            except Exception as e:
+                # Stop the progress bar
+                progress_bar.stop()
+                progress_bar.destroy()
+                
+                # Update the results text
+                self.append_text(self.results_text, f"Error clustering Search Console queries: {str(e)}\n")
+                
+                # Update the status
+                self.set_status(f"Error clustering Search Console queries: {str(e)}", ERROR_COLOR)
+                
+                # Show an error message
+                messagebox.showerror("Error", f"Error clustering Search Console queries: {str(e)}")
         
-        # Run the simulation in a separate thread
-        threading.Thread(target=simulate_loading).start()
-    
-    def cluster_search_console_queries(self):
-        """Cluster Search Console queries."""
-        # Implementation would go here
-        pass
+        # Run the clustering in a separate thread
+        threading.Thread(target=perform_clustering).start()
     
     def identify_search_console_topics(self):
         """Identify topics in Search Console data."""
-        # Implementation would go here
-        pass
+        if not self.search_console_data:
+            messagebox.showerror("Error", "Please load Search Console data first")
+            return
+        
+        if not self.search_console_analyzer or not self.search_console_analyzer.get_clusters():
+            messagebox.showerror("Error", "Please cluster Search Console queries first")
+            return
+        
+        self.set_status("Identifying Search Console topics...", INFO_COLOR)
+        
+        # Clear the results text
+        self.clear_text(self.results_text)
+        self.append_text(self.results_text, "Identifying Search Console topics...\n\n")
+        
+        # Create a progress bar
+        progress_frame = ttk.Frame(self.results_text.master)
+        self.results_text.window_create(tk.END, window=progress_frame)
+        self.append_text(self.results_text, "\n")
+        
+        progress_bar = ttk.Progressbar(progress_frame, mode="indeterminate", length=300)
+        progress_bar.pack(pady=10)
+        progress_bar.start()
+        
+        # Update the UI
+        self.root.update_idletasks()
+        
+        # Perform the topic identification in a separate thread
+        def perform_identification():
+            try:
+                # Identify the topics
+                self.search_console_analyzer.identify_topics()
+                
+                # Get the topics
+                topics = self.search_console_analyzer.get_topics()
+                
+                # Stop the progress bar
+                progress_bar.stop()
+                progress_bar.destroy()
+                
+                # Update the results text
+                self.append_text(self.results_text, f"Identified topics for {len(topics)} landing pages\n\n")
+                
+                self.append_text(self.results_text, "Sample Landing Page Topics:\n")
+                count = 0
+                for landing_page, topic in topics.items():
+                    if count >= 5:  # Show only 5 samples
+                        break
+                    self.append_text(self.results_text, f"{landing_page}:\n")
+                    self.append_text(self.results_text, f"  Topic: {', '.join(topic)}\n\n")
+                    count += 1
+                
+                # Update the status
+                self.set_status("Search Console topics identified successfully", SUCCESS_COLOR)
+                
+                # Show a success message
+                messagebox.showinfo("Success", "Search Console topics identified successfully")
+            except Exception as e:
+                # Stop the progress bar
+                progress_bar.stop()
+                progress_bar.destroy()
+                
+                # Update the results text
+                self.append_text(self.results_text, f"Error identifying Search Console topics: {str(e)}\n")
+                
+                # Update the status
+                self.set_status(f"Error identifying Search Console topics: {str(e)}", ERROR_COLOR)
+                
+                # Show an error message
+                messagebox.showerror("Error", f"Error identifying Search Console topics: {str(e)}")
+        
+        # Run the topic identification in a separate thread
+        threading.Thread(target=perform_identification).start()
     
     def compare_search_console_data(self):
         """Compare two Search Console datasets."""
-        # Implementation would go here
-        pass
+        if not self.search_console_data:
+            messagebox.showerror("Error", "Please load Search Console data first")
+            return
+        
+        if not self.search_console_data_old:
+            messagebox.showerror("Error", "Please load old Search Console data first")
+            return
+        
+        self.set_status("Comparing Search Console data...", INFO_COLOR)
+        
+        # Clear the results text
+        self.clear_text(self.results_text)
+        self.append_text(self.results_text, "Comparing Search Console data...\n\n")
+        
+        # Create a progress bar
+        progress_frame = ttk.Frame(self.results_text.master)
+        self.results_text.window_create(tk.END, window=progress_frame)
+        self.append_text(self.results_text, "\n")
+        
+        progress_bar = ttk.Progressbar(progress_frame, mode="indeterminate", length=300)
+        progress_bar.pack(pady=10)
+        progress_bar.start()
+        
+        # Update the UI
+        self.root.update_idletasks()
+        
+        # Perform the comparison in a separate thread
+        def perform_comparison():
+            try:
+                # Create a SearchConsoleComparison
+                self.search_console_comparison = SearchConsoleComparison(self.search_console_data_old, self.search_console_data)
+                
+                # Compare the data
+                comparison_results = self.search_console_comparison.compare()
+                
+                # Get the improved and declined queries and landing pages
+                improved_queries = self.search_console_comparison.get_improved_queries()
+                declined_queries = self.search_console_comparison.get_declined_queries()
+                improved_landing_pages = self.search_console_comparison.get_improved_landing_pages()
+                declined_landing_pages = self.search_console_comparison.get_declined_landing_pages()
+                
+                # Stop the progress bar
+                progress_bar.stop()
+                progress_bar.destroy()
+                
+                # Update the results text
+                self.append_text(self.results_text, "Search Console Data Comparison Results:\n\n")
+                
+                self.append_text(self.results_text, "Query Comparison:\n")
+                self.append_text(self.results_text, f"- Total queries: {len(self.search_console_comparison.get_query_comparison())}\n")
+                self.append_text(self.results_text, f"- Improved queries: {len(improved_queries)}\n")
+                self.append_text(self.results_text, f"- Declined queries: {len(declined_queries)}\n\n")
+                
+                self.append_text(self.results_text, "Landing Page Comparison:\n")
+                self.append_text(self.results_text, f"- Total landing pages: {len(self.search_console_comparison.get_landing_page_comparison())}\n")
+                self.append_text(self.results_text, f"- Improved landing pages: {len(improved_landing_pages)}\n")
+                self.append_text(self.results_text, f"- Declined landing pages: {len(declined_landing_pages)}\n\n")
+                
+                self.append_text(self.results_text, "Top Improved Queries:\n")
+                for i, (_, row) in enumerate(improved_queries.head(5).iterrows()):
+                    self.append_text(self.results_text, f"- {row['Query']}: +{row['Impressions_change']:.0f} impressions ({row['Impressions_change_pct']:.1f}%)\n")
+                
+                self.append_text(self.results_text, "\nTop Declined Queries:\n")
+                for i, (_, row) in enumerate(declined_queries.head(5).iterrows()):
+                    self.append_text(self.results_text, f"- {row['Query']}: {row['Impressions_change']:.0f} impressions ({row['Impressions_change_pct']:.1f}%)\n")
+                
+                # Update the status
+                self.set_status("Search Console data compared successfully", SUCCESS_COLOR)
+                
+                # Show a success message
+                messagebox.showinfo("Success", "Search Console data compared successfully")
+            except Exception as e:
+                # Stop the progress bar
+                progress_bar.stop()
+                progress_bar.destroy()
+                
+                # Update the results text
+                self.append_text(self.results_text, f"Error comparing Search Console data: {str(e)}\n")
+                
+                # Update the status
+                self.set_status(f"Error comparing Search Console data: {str(e)}", ERROR_COLOR)
+                
+                # Show an error message
+                messagebox.showerror("Error", f"Error comparing Search Console data: {str(e)}")
+        
+        # Run the comparison in a separate thread
+        threading.Thread(target=perform_comparison).start()
     
     def suggest_search_console_links(self):
         """Suggest internal links based on Search Console data."""
-        # Implementation would go here
-        pass
+        if not self.search_console_data:
+            messagebox.showerror("Error", "Please load Search Console data first")
+            return
+        
+        if not self.search_console_analyzer or not self.search_console_analyzer.get_topics():
+            messagebox.showerror("Error", "Please identify Search Console topics first")
+            return
+        
+        self.set_status("Suggesting internal links based on Search Console data...", INFO_COLOR)
+        
+        # Clear the results text
+        self.clear_text(self.results_text)
+        self.append_text(self.results_text, "Suggesting internal links based on Search Console data...\n\n")
+        
+        # Create a progress bar
+        progress_frame = ttk.Frame(self.results_text.master)
+        self.results_text.window_create(tk.END, window=progress_frame)
+        self.append_text(self.results_text, "\n")
+        
+        progress_bar = ttk.Progressbar(progress_frame, mode="indeterminate", length=300)
+        progress_bar.pack(pady=10)
+        progress_bar.start()
+        
+        # Update the UI
+        self.root.update_idletasks()
+        
+        # Perform the link suggestion in a separate thread
+        def perform_suggestion():
+            try:
+                # Suggest internal links
+                suggestions = self.search_console_analyzer.suggest_internal_links()
+                
+                # Stop the progress bar
+                progress_bar.stop()
+                progress_bar.destroy()
+                
+                # Update the results text
+                self.append_text(self.results_text, f"Generated {len(suggestions)} internal link suggestions\n\n")
+                
+                self.append_text(self.results_text, "Sample Link Suggestions:\n")
+                for i, suggestion in enumerate(suggestions[:10]):  # Show top 10 suggestions
+                    self.append_text(self.results_text, f"- Link from {suggestion['source']} to {suggestion['target']}\n")
+                    self.append_text(self.results_text, f"  Topic: {suggestion['topic']}\n\n")
+                
+                # Update the status
+                self.set_status("Internal link suggestions generated successfully", SUCCESS_COLOR)
+                
+                # Show a success message
+                messagebox.showinfo("Success", "Internal link suggestions generated successfully")
+            except Exception as e:
+                # Stop the progress bar
+                progress_bar.stop()
+                progress_bar.destroy()
+                
+                # Update the results text
+                self.append_text(self.results_text, f"Error suggesting internal links: {str(e)}\n")
+                
+                # Update the status
+                self.set_status(f"Error suggesting internal links: {str(e)}", ERROR_COLOR)
+                
+                # Show an error message
+                messagebox.showerror("Error", f"Error suggesting internal links: {str(e)}")
+        
+        # Run the link suggestion in a separate thread
+        threading.Thread(target=perform_suggestion).start()
     
     def load_semrush_data(self):
         """Load SEMrush data."""
