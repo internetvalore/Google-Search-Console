@@ -197,7 +197,9 @@ class SEOAnalysisTool:
         # Add a welcome message
         self.results_text.insert(tk.END, "Welcome to the SEO Analysis Tool!\n\n")
         self.results_text.insert(tk.END, "This tool helps you analyze websites for SEO issues and generate reports.\n\n")
-        self.results_text.insert(tk.END, "To get started, enter a URL above and click 'Validate'.\n")
+        self.results_text.insert(tk.END, "To get started, enter a URL above and click 'Validate'.\n\n")
+        self.results_text.insert(tk.END, "NEW FEATURE: Progress indicators have been added to all report generation methods.\n")
+        self.results_text.insert(tk.END, "You will now see real-time progress updates during report generation!\n")
     
     def create_crawling_tab(self):
         """Create the crawling tab."""
@@ -3126,9 +3128,8 @@ class SEOAnalysisTool:
         self.results_text.window_create(tk.END, window=progress_frame)
         self.append_text(self.results_text, "\n")
         
-        progress_bar = ttk.Progressbar(progress_frame, mode="indeterminate", length=300)
+        progress_bar = ttk.Progressbar(progress_frame, mode="determinate", length=300, maximum=100)
         progress_bar.pack(pady=10)
-        progress_bar.start()
         
         # Update the UI
         self.root.update_idletasks()
@@ -3140,11 +3141,44 @@ class SEOAnalysisTool:
                 if not self.report_generator:
                     self.report_generator = ReportGenerator(REPORTS_DIR)
                 
-                # Generate the report
-                report_file = self.report_generator.generate_search_console_report(self.search_console_analyzer)
+                # Redirect stdout to capture progress messages
+                import io
+                import sys
+                from contextlib import redirect_stdout
+                
+                # Create a StringIO object to capture stdout
+                captured_output = io.StringIO()
+                
+                # Generate the report and capture the output
+                with redirect_stdout(captured_output):
+                    report_file = self.report_generator.generate_search_console_report(self.search_console_analyzer)
+                
+                # Process the captured output to update the progress bar and results text
+                output_lines = captured_output.getvalue().splitlines()
+                for line in output_lines:
+                    # Update the results text with the progress message
+                    self.append_text(self.results_text, line + "\n")
+                    
+                    # Update the progress bar based on the progress message
+                    if "10% complete" in line:
+                        progress_bar["value"] = 10
+                    elif "20% complete" in line:
+                        progress_bar["value"] = 20
+                    elif "30% complete" in line:
+                        progress_bar["value"] = 30
+                    elif "50% complete" in line:
+                        progress_bar["value"] = 50
+                    elif "70% complete" in line:
+                        progress_bar["value"] = 70
+                    elif "90% complete" in line:
+                        progress_bar["value"] = 90
+                    elif "100%" in line:
+                        progress_bar["value"] = 100
+                    
+                    # Update the UI
+                    self.root.update_idletasks()
                 
                 # Stop the progress bar
-                progress_bar.stop()
                 progress_bar.destroy()
                 
                 # Update the results text
@@ -3161,7 +3195,6 @@ class SEOAnalysisTool:
                 os.startfile(report_file)
             except Exception as e:
                 # Stop the progress bar
-                progress_bar.stop()
                 progress_bar.destroy()
                 
                 # Update the results text

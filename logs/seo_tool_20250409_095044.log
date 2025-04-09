@@ -1,0 +1,6 @@
+2025-04-09 09:51:43,218 - seo_crawler - INFO - Processing sitemap: https://www.stihl.it/sitemap.xml
+2025-04-09 09:51:43,304 - seo_crawler - INFO - Processing sitemap
+2025-04-09 09:52:06,171 - seo_search_console - INFO - Loading Search Console data from: C:/Users/andre/Downloads/SCq12025.csv
+2025-04-09 09:52:09,679 - seo_search_console - INFO - Loading Search Console data from: C:/Users/andre/Downloads/SCq12024.csv
+2025-04-09 09:52:20,707 - seo_search_console - INFO - Comparing Search Console datasets
+2025-04-09 09:52:33,408 - seo_report - INFO - Generating Search Console report
